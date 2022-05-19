@@ -2,46 +2,82 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>LyricBot</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="static/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <script
+            src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+            crossorigin="anonymous"
+        ></script>
         <!-- Simple line icons-->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css" rel="stylesheet" />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css"
+            rel="stylesheet"
+        />
         <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+            rel="stylesheet"
+            type="text/css"
+        />
         <!-- JQUERY -->
-        <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='jquery.js') }}" defer=""></script>
+        <script
+            class="u-script"
+            type="text/javascript"
+            src="{{ url_for('static', filename='jquery.js') }}"
+            defer=""
+        ></script>
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{{ url_for('static',filename='/css/styles.css') }}" rel="stylesheet" />
+        <link
+            href="{{ url_for('static',filename='/css/styles.css') }}"
+            rel="stylesheet"
+        />
     </head>
     <body id="page-top">
         <!-- Navigation-->
-        <a class="menu-toggle rounded" href="#"><i class="fas fa-bars"></i></a>
-        <nav id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-              <li class="sidebar-brand"><a href={{ url_for('home')}}>LyricBot Project</a></li>
-              <li class="sidebar-nav-item"><a href={{ url_for('home')}}>Home </a></li>
-              <li class="sidebar-nav-item"><a href={{ url_for('results')}}>Try The Model</a></li>
-              <li class="sidebar-nav-item"><a href="https://www.github.com">Our Github</a></li>
-              <li class="sidebar-nav-item"><a href="https://www.ai-camp.org">AI Camp</a></li>
-            </ul>
-        </nav>
+        <!-- <a class="menu-toggle rounded" href="#"><i class="fas fa-bars"></i></a> -->
+        
         <!-- Header-->
         <header class="masthead d-flex align-items-center">
+            
             <div class="container px-4 px-lg-5 text-center">
-                <h1 class="mb-1 text-primary">LyricBot</h1>
-                <h2 class="mb-2 text-primary">'Algorithms and Blues' Edition</h2>
-                <h3 class="mb-5 text-light"><em>All your favorite artists. One AI.</em></h3>
-                <a class="btn btn-primary btn-xl" href={{ url_for('results')}}>Try the Model</a>
+                <h1 class="mb-1 text-primary">JAIne: Novel Writer</h1>
+                <h4 class="mb-1 text-primary">What if AI writes a fanfiction of Pride and Prejudice?</h4>
+                <h6 class="mb-1 text-primary">Enter some prompt below!</h6>
+                <br>
+                <div class="gx-4 gx-lg-5 justify-content-center">
+                    <form action="{{url_for('generate_text')}}" method="POST" source="custom" name="form-1" >
+                          <div class="form-group">
+                            <textarea class="form-control-lg" rows="15" cols="100" placeholder="Write your prompt here..." required="" id="text_gen_input" name="prompt">{{ generated }}</textarea>
+                          </div>
+                          <div class="form-group">
+                            <button type="submit" class="btn-lg btn-success strong" id="text_gen_button">Generate!</button>
+                            <button formaction="{{url_for('clear_text')}}" class="btn-lg btn-danger strong">Clear</button>
+                          </div>
+                        </form>
+                        
+                    
+                      <!-- <h2 class="text-light">Results:</h2>
+                      <ul id="generated_ul">
+                      <p>
+                        
+                        </p>
+                      </ul> -->
+                </div>
             </div>
         </header>
         <!-- The Project. Note: https://thesabbir.github.io/simple-line-icons/ will give you a cheat sheet for the icons available-->
-        <section class="content-section bg-primary text-white text-center" id="theproject">
+        <section
+            class="content-section bg-primary text-white text-center"
+            id="theproject"
+        >
             <div class="container px-4 px-lg-5">
                 <div class="content-section-heading">
                     <h3 class="text-secondary mb-0">Specs + Features</h3>
@@ -49,24 +85,40 @@
                 </div>
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-music-tone-alt"></i></span>
-                        <h4><strong>Great Music Taste</strong></h4>
-                        <p class="text-faded mb-0">LyricBot is a custom trained GPT-2 model that learned from over 94000 lyrics from the best rock artists of all time.</p>
+                        <span class="service-icon rounded-circle mx-auto mb-3"
+                            ><i class="icon-pencil"></i
+                        ></span>
+                        <h4><strong>Jane + AI = JAIne</strong></h4>
+                        <p class="text-faded mb-0">
+                            JAIne is a custom trained GPT-2 model that learned how to generate a fanfiction for Pride and Prejudice, orignally written by Jane Austen.
+                        </p>
                     </div>
                     <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-playlist"></i></span>
+                        <span class="service-icon rounded-circle mx-auto mb-3"
+                            ><i class="icon-bubble"></i
+                        ></span>
                         <h4><strong>Interactive</strong></h4>
-                        <p class="text-faded mb-0">LyricBot will write lyrics based off of any prompt you provide it.</p>
+                        <p class="text-faded mb-0">
+                            JAIne will continue a story based on the prompt you enter. Try different prompts for different stories! 
+                        </p>
                     </div>
                     <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
-                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-clock"></i></span>
-                        <h4><strong>Timeline</strong></h4>
-                        <p class="text-faded mb-0">LyricBot was completed by teenagers over the course of three weeks this summer!</p>
+                        <span class="service-icon rounded-circle mx-auto mb-3"
+                            ><i class="icon-film"></i
+                        ></span>
+                        <h4><strong>Entertaining</strong></h4>
+                        <p class="text-faded mb-0">
+                            JAIne readS the whole Pride and Prejudice book before learning how to write one. It knows how to amuse readers!
+                        </p>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <span class="service-icon rounded-circle mx-auto mb-3"><i class="icon-docs"></i></span>
+                        <span class="service-icon rounded-circle mx-auto mb-3"
+                            ><i class="icon-docs"></i
+                        ></span>
                         <h4><strong>Extensions</strong></h4>
-                        <p class="text-faded mb-0">Some extensions to this project include deploying it to the web, building a discord bot, or having the algorithms and blues LyricBot interact with new genres!</p>
+                        <p class="text-faded mb-0">
+                            Some extensions to this project include adapting it to modern novels to reimagine other stories in a Victorian Era English style.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -83,12 +135,15 @@
                         <a class="portfolio-item" href="#!">
                             <div class="caption">
                                 <div class="caption-content">
-                                    <div class="h1">Cameron Jackson</div>
-                                  <div class="h2">Machine Learning Engineer</div>
-                                    <p class="mb-0">An AI enthusiast who loves Natural Language Processing!</p>
+                                    <div class="h1">Phakawat Wangkriangkri</div>
+                                    
+                                    <div class="h2">Developer</div>
+                                    <p class="mb-0">CS student who loves Natural Language processing!</p>
+                                    <br>
                                 </div>
                             </div>
-                            <img class="img-fluid" src="{{ url_for('static',filename='img/portfolio-1.jpg') }}" alt="..." />
+                            
+                            <img class="img-fluid" src="{{ url_for('static',filename='img/portfolio-5.jpg') }}" alt="..." />
                         </a>
                     </div>
                     <div class="col-lg-6">
@@ -131,9 +186,9 @@
                         <a class="portfolio-item" href="#!">
                             <div class="caption">
                                 <div class="caption-content">
-                                    <div class="h1">Cydnee Harris</div>
-                                    <div class="h2">Quality Control</div>
-                                    <p class="mb-0">A thorough quality controller who loves Natural Language Processing!</p>
+                                    <div class="h1">Mitchell Cutts</div>
+                                    <div class="h2">Developer</div>
+                                    <p class="mb-0">Passionate leader with a background in computer science, mathematics, and data science!</p>
                                 </div>
                             </div>
                             <img class="img-fluid" src="{{ url_for('static',filename='img/portfolio-4.jpg') }}" alt="..." />
@@ -143,11 +198,12 @@
                         <a class="portfolio-item" href="#!">
                             <div class="caption">
                                 <div class="caption-content">
-                                    <div class="h1">Stella Dong</div>
-                                    <div class="h2">Front End Engineer</div>
-                                    <p class="mb-0">An html enthusiast who loves Natural Language Processing!</p>
+                                    <div class="h1">Cameron Jackson</div>
+                                  <div class="h2">Machine Learning Engineer</div>
+                                    <p class="mb-0">An AI enthusiast who loves Natural Language Processing!</p>
                                 </div>
                             </div>
+                          
                             <img class="img-fluid" src="{{ url_for('static',filename='img/portfolio-1.jpg') }}" alt="..." />
                         </a>
                     </div>
@@ -159,22 +215,45 @@
             <div class="container px-4 px-lg-5">
                 <ul class="list-inline mb-5">
                     <li class="list-inline-item">
-                        <a class="social-link rounded-circle text-white mr-3" href="https://www.facebook.com/aicampdotorg/"><i class="icon-social-facebook"></i></a>
+                        <a
+                            class="social-link rounded-circle text-white mr-3"
+                            href="https://www.facebook.com/aicampdotorg/"
+                            ><i class="icon-social-facebook"></i
+                        ></a>
                     </li>
                     <li class="list-inline-item">
-                        <a class="social-link rounded-circle text-white mr-3" href="https://twitter.com/AICampOfficial"><i class="icon-social-twitter"></i></a>
+                        <a
+                            class="social-link rounded-circle text-white mr-3"
+                            href="https://twitter.com/AICampOfficial"
+                            ><i class="icon-social-twitter"></i
+                        ></a>
                     </li>
                     <li class="list-inline-item">
-                        <a class="social-link rounded-circle text-white" href="https://github.com/minimaxir/aitextgen"><i class="icon-social-github"></i></a>
+                        <a
+                            class="social-link rounded-circle text-white"
+                            href="https://github.com/minimaxir/aitextgen"
+                            ><i class="icon-social-github"></i
+                        ></a>
                     </li>
                 </ul>
-                <p class="text-muted small mb-0">Copyright &copy; LyricBot AI Camp Team (mitch cutts) 2022 </p>
+                <p class="text-muted small mb-0">
+                    Copyright &copy; JAIne AI Camp (Phakawat Wangkriangkri) 2022.
+                </p>
+                <p class="text-muted small mb-0">
+                   This page is modified from a template originally created by Mitch Cutts.
+                </p>
             </div>
         </footer>
         <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        <a class="scroll-to-top rounded" href="#page-top"
+            ><i class="fas fa-angle-up"></i
+        ></a>
         <!-- TEXTGEN JS-->
-        <script type="text/javascript" src="{{ url_for('static', filename='js/text_gen.js') }}" defer=""></script>
+        <script
+            type="text/javascript"
+            src="{{ url_for('static', filename='js/text_gen.js') }}"
+            defer=""
+        ></script>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

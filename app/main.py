@@ -24,8 +24,8 @@ from aitextgen import aitextgen
 # ai = aitextgen(model_folder="model/",
 #                tokenizer_file="model/aitextgen.tokenizer.json", to_gpu=False)
 
-ai = aitextgen(model="distilgpt2", to_gpu=False)
-
+ai = aitextgen(model_folder="model", to_gpu=False)
+default_text = "\"Mr. Darcy, would you rather ask her for a dance?\""
 # setup the webserver
 # port may need to be changed if there are multiple flask servers running on same server
 port = 12345
@@ -45,21 +45,30 @@ app.secret_key = os.urandom(64)
 
 @app.route(f'{base_url}')
 def home():
-    return render_template('writer_home.html', generated=None)
-
-
-@app.route(f'{base_url}', methods=['POST'])
-def home_post():
-    return redirect(url_for('results'))
-
-
-@app.route(f'{base_url}/results/')
-def results():
     if 'data' in session:
         data = session['data']
-        return render_template('Write-your-story-with-AI.html', generated=data)
+        session.pop('data')
+        # return render_template('Write-your-story-with-AI.html', generated=data)
+        return render_template('writer_home.html', generated=data)
     else:
-        return render_template('Write-your-story-with-AI.html', generated=None)
+        return render_template('writer_home.html', generated=default_text)
+    # return render_template('writer_home.html', generated=default_text)
+
+
+# @app.route(f'{base_url}', methods=['POST'])
+# def home_post():
+    # return redirect(url_for('results'))
+    
+
+
+# @app.route(f'{base_url}/results/')
+# def results():
+#     if 'data' in session:
+#         data = session['data']
+#         # return render_template('Write-your-story-with-AI.html', generated=data)
+#         return render_template('writer_home.html', generated=data)
+#     else:
+#         return render_template('writer_home.html', generated=default_text)
 
 
 @app.route(f'{base_url}/generate_text/', methods=["POST"])
@@ -72,16 +81,21 @@ def generate_text():
     if prompt is not None:
         generated = ai.generate(
             n=1,
-            batch_size=3,
+            batch_size=1,
             prompt=str(prompt),
             max_length=300,
             temperature=0.9,
             return_as_list=True
         )
-
+        # print(generated)
     data = {'generated_ls': generated}
     session['data'] = generated[0]
-    return redirect(url_for('results'))
+    return redirect(url_for('home'))
+
+@app.route(f'{base_url}/clear_text/', methods=["POST"])
+def clear_text():
+    session['data'] = ""
+    return redirect(url_for('home'))
 
 # define additional routes here
 # for example:
@@ -92,7 +106,8 @@ def generate_text():
 
 if __name__ == '__main__':
     # IMPORTANT: change url to the site where you are editing this file.
-    website_url = 'coding.ai-camp.dev'
+    # website_url = 'coding.ai-camp.dev'
+    website_url = 'localhost'
 
     print(f'Try to open\n\n    https://{website_url}' + base_url + '\n\n')
     app.run(host='0.0.0.0', port=port, debug=True)
