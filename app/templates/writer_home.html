@@ -58,6 +58,16 @@
                             <textarea class="form-control-lg" rows="15" cols="100" placeholder="Write your prompt here..." required="" id="text_gen_input" name="prompt">{{ generated }}</textarea>
                           </div>
                           <div class="form-group">
+                            
+                            <div class="container px-sm-5">
+                              <h4 class="fw-bolder">Temperature</h4>
+                              <input type="range" min="0.5" max="1.0" value="0.9" step="0.1" class="form-range" name="temp" oninput="this.nextElementSibling.value = this.value">
+                              <output class="fw-bolder fs-2">0.9</output>
+                            </div>
+                            
+                          </div>
+                      <br>
+                          <div class="form-group">
                             <button type="submit" class="btn-lg btn-success strong" id="text_gen_button">Generate!</button>
                             <button formaction="{{url_for('clear_text')}}" class="btn-lg btn-danger strong">Clear</button>
                           </div>

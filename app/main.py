@@ -77,6 +77,12 @@ def generate_text():
     view function that will return json response for generated text. 
     """
 
+    temp = request.form['temp']
+    try:
+        temp = float(temp)
+    except:
+        temp = 0.9
+        
     prompt = request.form['prompt']
     if prompt is not None:
         generated = ai.generate(
@@ -84,7 +90,7 @@ def generate_text():
             batch_size=1,
             prompt=str(prompt),
             max_length=300,
-            temperature=0.9,
+            temperature=temp,
             return_as_list=True
         )
         # print(generated)
@@ -107,7 +113,7 @@ def clear_text():
 if __name__ == '__main__':
     # IMPORTANT: change url to the site where you are editing this file.
     # website_url = 'coding.ai-camp.dev'
-    website_url = 'localhost'
+    website_url = 'cocalcg39.ai-camp.dev'
 
     print(f'Try to open\n\n    https://{website_url}' + base_url + '\n\n')
     app.run(host='0.0.0.0', port=port, debug=True)
