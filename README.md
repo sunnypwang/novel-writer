@@ -1,6 +1,8 @@
 # JAIne: Novel Writer Bot
 A text generation for Victorian English novel.
 
+![site](web2.png)
+
 Given a prompt, the model will attempt to generate a brand new story in the fictional world of "Pride and Prejudice". The model is a pre-trained GPT-2 that is fine-tuned on the mentioned novel to recreate a writing style of Jane Austen. The model automatically generate the text with proper pucntuation and spacing - it learns how to add spaces between words, how to enquote character sayings in quotation marks properly, and also how to space between paragraphs for better flow of reading. The model will give an interesting story involving familiar characters from the novel, which will be helpful for fanfictions, ideas suggestion, and entertainment.
 
 
